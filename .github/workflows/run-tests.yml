@@ -19,13 +19,13 @@ jobs:
           - php: 8.2
             laravel: '11.*'
             testbench: '9.*'
-            larastan: true
+            larastan: '2.*'
             dependency-version: prefer-stable
             os: ubuntu-latest
           - php: 8.2
             laravel: '12.*'
             testbench: '10.*'
-            larastan: false
+            larastan: '3.1.*'
             dependency-version: prefer-stable
             os: ubuntu-latest
 
@@ -51,9 +51,6 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          if [ "${{ matrix.larastan }}" == "true" ]; then
-            composer require "larastan/larastan" --dev --no-interaction --no-update
-          fi
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
